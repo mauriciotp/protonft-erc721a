@@ -1,62 +1,38 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
-import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import {ERC721Burnable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import {ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import {ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
+import "erc721a/contracts/ERC721A.sol";
 
-contract ProtoNFT is
-    ERC721,
-    ERC721Enumerable,
-    ERC721URIStorage,
-    ERC721Burnable
-{
-    uint256 private _nextTokenId;
+contract ProtoNFT is ERC721A {
+    address payable private _owner;
 
-    constructor() ERC721("ProtoNFT", "PNFT") {}
+    constructor() ERC721A("ProtoNFT", "PNFT") {
+        _owner = payable(msg.sender);
+    }
 
-    function safeMint() public returns (uint256) {
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(msg.sender, tokenId);
-        _setTokenURI(tokenId, Strings.toString(tokenId));
-        return tokenId;
+    function mint(uint256 quantity) public payable {
+        require(msg.value >= 0.01 ether, "Insufficient payment");
+        _mint(msg.sender, quantity);
+    }
+
+    function burn(uint256 tokenId) external {
+        super._burn(tokenId, true);
+    }
+
+    function withdraw() external {
+        require(msg.sender == _owner, "You do not have permission");
+        uint256 amount = address(this).balance;
+        (bool success, ) = _owner.call{value: amount}("");
+        require(success, "Withdraw failed.");
     }
 
     function _baseURI() internal pure override returns (string memory) {
         return "https://www.calabreso.com.br/nfts/";
     }
 
-    function _update(
-        address to,
-        uint256 tokenId,
-        address auth
-    ) internal override(ERC721, ERC721Enumerable) returns (address) {
-        return super._update(to, tokenId, auth);
-    }
-
-    function _increaseBalance(
-        address account,
-        uint128 value
-    ) internal override(ERC721, ERC721Enumerable) {
-        super._increaseBalance(account, value);
-    }
-
     function tokenURI(
         uint256 tokenId
-    ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
+    ) public view override(ERC721A) returns (string memory) {
         return string.concat(super.tokenURI(tokenId), ".json");
-    }
-
-    function supportsInterface(
-        bytes4 interfaceId
-    )
-        public
-        view
-        override(ERC721, ERC721Enumerable, ERC721URIStorage)
-        returns (bool)
-    {
-        return super.supportsInterface(interfaceId);
     }
 }
