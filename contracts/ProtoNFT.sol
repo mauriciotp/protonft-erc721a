@@ -27,7 +27,8 @@ contract ProtoNFT is ERC721A {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "https://www.calabreso.com.br/nfts/";
+        return
+            "ipfs://bafybeif4hphlazamgc5buppqlk3glesfuadm7yw3gzpapokv2ahrqk5oby/";
     }
 
     function tokenURI(

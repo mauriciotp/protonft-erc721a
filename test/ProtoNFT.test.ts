@@ -133,7 +133,7 @@ describe('ProtoNFT', function () {
     const tokenId = 0
 
     expect(await protoNFT.tokenURI(tokenId)).to.equal(
-      'https://www.calabreso.com.br/nfts/0.json',
+      'ipfs://bafybeif4hphlazamgc5buppqlk3glesfuadm7yw3gzpapokv2ahrqk5oby/0.json',
       "Can't get URI metadata"
     )
   })
