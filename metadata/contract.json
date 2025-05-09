@@ -1,0 +1,11 @@
+{
+  "name": "Proto NFT",
+  "description": "Just an ERC-721 test by mauriciotp.",
+  "image": "ipfs://bafybeibhrp3ofgip66obzf77z4bhg4nv44xu3cngmxywiidio5i5mi4ohq/0.png",
+  "banner_image": "ipfs://bafybeibhrp3ofgip66obzf77z4bhg4nv44xu3cngmxywiidio5i5mi4ohq/0.png",
+  "featured_image": "ipfs://bafybeibhrp3ofgip66obzf77z4bhg4nv44xu3cngmxywiidio5i5mi4ohq/0.png",
+  "external_link": "https://github.com/mauriciotp",
+  "collaborators": [
+    "0x0000000000000000000000000000000000000000"
+  ]
+}

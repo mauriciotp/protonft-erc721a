@@ -133,7 +133,7 @@ describe('ProtoNFT', function () {
     const tokenId = 0
 
     expect(await protoNFT.tokenURI(tokenId)).to.equal(
-      'ipfs://bafybeif4hphlazamgc5buppqlk3glesfuadm7yw3gzpapokv2ahrqk5oby/0.json',
+      'ipfs://bafybeif3moyh3indmueoidvodhrwwsdlipdmsnoedgykxg22nciqzxowei/0.json',
       "Can't get URI metadata"
     )
   })

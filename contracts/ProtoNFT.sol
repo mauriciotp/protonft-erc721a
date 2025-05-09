@@ -11,7 +11,7 @@ contract ProtoNFT is ERC721A {
     }
 
     function mint(uint256 quantity) public payable {
-        require(msg.value >= 0.01 ether, "Insufficient payment");
+        require(msg.value >= 0.01 ether * quantity, "Insufficient payment");
         _mint(msg.sender, quantity);
     }
 
@@ -28,12 +28,17 @@ contract ProtoNFT is ERC721A {
 
     function _baseURI() internal pure override returns (string memory) {
         return
-            "ipfs://bafybeif4hphlazamgc5buppqlk3glesfuadm7yw3gzpapokv2ahrqk5oby/";
+            "ipfs://bafybeif3moyh3indmueoidvodhrwwsdlipdmsnoedgykxg22nciqzxowei/";
     }
 
     function tokenURI(
         uint256 tokenId
     ) public view override(ERC721A) returns (string memory) {
         return string.concat(super.tokenURI(tokenId), ".json");
+    }
+
+    function contractURI() public pure returns (string memory) {
+        return
+            "ipfs://bafybeif3moyh3indmueoidvodhrwwsdlipdmsnoedgykxg22nciqzxowei/contract.json";
     }
 }
